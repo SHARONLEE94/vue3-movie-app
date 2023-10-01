@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
-import movie from "./movie";
-import about from "./about";
+import movie from "./movie.js";
+import about from "./about.js";
 
 export default createStore({
   modules: {
