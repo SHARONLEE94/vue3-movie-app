@@ -60,6 +60,7 @@ export default {
         }
       } catch (message) {
         commit("updateState", {
+          // 초기화를 위한 배열
           movies: [],
           message,
         });
@@ -81,7 +82,7 @@ function _fetchMovie(payload) {
     axios
       .get(url)
       .then((res) => {
-        console.log(res);
+        console.log("res : ", res);
         // 예외처리
         if (res.data.Error) {
           reject(res.data.Error);
