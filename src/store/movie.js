@@ -3,7 +3,11 @@ import _uniqBy from "lodash/uniqBy";
 
 export default {
   namespaced: true,
-  state: () => ({ movies: [], message: "", loading: false }),
+  state: () => ({
+    movies: [],
+    message: "Search for the movie title!",
+    loading: false,
+  }),
   getters: {},
   mutations: {
     // mutations : 변이 메서드를 작서하는 곳
@@ -27,6 +31,13 @@ export default {
     // Store의 Mutations를 실행할 때는 .commit()메소드를,
     // Actions를 실행할 때는 .dispatch(스토어 index.js에 연결된 모듈/액션(메소드)) 메소드를 사용
     async searchMovies({ state, commit }, payload) {
+      // 동작이 끝나기 전에 함수가 다시 실행되는 걸 방지하기 위한 코드
+      if (state.loading) return;
+
+      commit("updateState", {
+        message: "",
+        loading: true,
+      });
       try {
         const res = await _fetchMovie({
           ...payload,
@@ -63,6 +74,10 @@ export default {
           // 초기화를 위한 배열
           movies: [],
           message,
+        });
+      } finally {
+        commit("updateState", {
+          loading: false,
         });
       }
     },
