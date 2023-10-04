@@ -7,6 +7,7 @@ export default {
     movies: [],
     message: "Search for the movie title!",
     loading: false,
+    theMovie: {},
   }),
   getters: {},
   mutations: {
@@ -38,6 +39,7 @@ export default {
         message: "",
         loading: true,
       });
+
       try {
         const res = await _fetchMovie({
           ...payload,
@@ -49,8 +51,8 @@ export default {
           //message: "Hello world",
           //loading: true,
         });
-        console.log(totalResults);
-        console.log(typeof totalResults);
+        console.log("totalResults :: ", totalResults);
+        console.log("typeof totalResults ::", typeof totalResults);
 
         const total = parseInt(totalResults, 10);
         const pageLenght = Math.ceil(total / 10);
@@ -81,15 +83,42 @@ export default {
         });
       }
     },
+    // 영화 하나의 상세정보
+    // async searchMovieWithId(context, payload) => context 매개변수 안에 state, commit  등등 존재
+    async searchMovieWithId({ state, commit }, payload) {
+      if (state.loading) return;
+
+      commit("updateState", {
+        theMovie: {}, // 기존에 검색된 상세정보 초기화
+        loading: true,
+      });
+
+      try {
+        const res = await _fetchMovie(payload);
+        commit("updateState", {
+          theMovie: res.data,
+        });
+      } catch (error) {
+        commit("updateState", {
+          theMovie: {},
+        });
+      } finally {
+        commit("updateState", {
+          loading: false,
+        });
+      }
+    },
   },
 };
 
 // 검색 코드 리팩토링
 // _ : 현재 페이지 내에서만 사용됨을 의미
 function _fetchMovie(payload) {
-  const { title, type, year, page } = payload;
+  const { title, type, year, page, id } = payload;
   const OMDB_API_KEY = "7035c60c";
-  const url = `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`;
+  const url = id
+    ? `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${id}`
+    : `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`;
   // 오류상황에 대응하기 위해 test할 코드
   //const url = `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}`;
 
