@@ -1,5 +1,13 @@
 <template>
-  <div :class="{ absolute, fixed }" class="spinner-border text-primary"></div>
+  <div
+    :style="{
+      width: `${size}rem`,
+      height: `${size}rem`,
+      zIndex,
+    }"
+    :class="{ absolute, fixed }"
+    class="spinner-border text-primary"
+  ></div>
 </template>
 
 <script>

@@ -11,11 +11,18 @@
         <div class="skeleton etc"></div>
       </div>
     </div>
+    <Loader :size="3" :z-index="9" fixed />
+    <!-- Boolean데이터는 fixed라는 속성의 표기 유무만을 가지고도 true(표기한 경우)와 false를 지정할 수 있다.  -->
   </div>
 </template>
 
 <script>
+import Loader from "~/components/Loader";
+
 export default {
+  components: {
+    Loader,
+  },
   created() {
     console.log("this.$route :::", this.$route);
     this.$store.dispatch("movie/searchMovieWithId", {
