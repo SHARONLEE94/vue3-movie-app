@@ -5,7 +5,7 @@ export default {
   namespaced: true,
   state: () => ({
     movies: [],
-    message: "Search for the movie title!",
+    message: "Search for the movie title!", // 기본 메세지
     loading: false,
     theMovie: {},
   }),
@@ -35,6 +35,7 @@ export default {
       // 동작이 끝나기 전에 함수가 다시 실행되는 걸 방지하기 위한 코드
       if (state.loading) return;
 
+      // 메시지 수정 -> 검색이 시작되면 검색 부분의 값을 초기화 + 검색이 시작되면 loading 값을 true로 변경
       commit("updateState", {
         message: "",
         loading: true,
@@ -79,7 +80,7 @@ export default {
         });
       } finally {
         commit("updateState", {
-          loading: false,
+          loading: false, // loading은 결과가 어떻든 실행이 끝나면 false로 변경
         });
       }
     },
