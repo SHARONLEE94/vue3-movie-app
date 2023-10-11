@@ -1,5 +1,13 @@
 <template>
-  <div :style="{ backgroundImage: `url(${movie.Poster})` }" class="movie">
+  <div
+    :style="{ backgroundImage: `url(${movie.Poster})` }"
+    class="movie"
+  >
+    <Loader 
+      v-if="imageLoading"
+      :size="1.5"
+      absolute
+    />
     <div class="info">
       <div class="year">
         {{ movie.Year }}
@@ -12,13 +20,32 @@
 </template>
 
 <script>
+import Loader from '~/components/Loader'
+
 export default {
+  components:{
+    Loader
+  },
   props: {
     movie: {
       type: Object,
       default: () => ({}),
     },
   },
+  data(){
+    return{
+      imageLoading : true
+    }
+  },
+  mounted(){ // mounted : html과 연결된 직후. 일반적인 경우에는 create사용 하지만, html요소를 다룰 경우에는 mounted 사용을 권장
+    this.init() 
+  },
+  methods:{
+    async init(){
+     await this.$loadImage(this.movie.Poster)
+     this.imageLoading = false
+    }
+  }
 };
 </script>
 

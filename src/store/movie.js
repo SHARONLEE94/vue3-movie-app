@@ -96,6 +96,7 @@ export default {
 
       try {
         const res = await _fetchMovie(payload);
+        console.log(res.data);
         commit("updateState", {
           theMovie: res.data,
         });
@@ -121,7 +122,7 @@ function _fetchMovie(payload) {
     ? `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${id}`
     : `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`;
   // 오류상황에 대응하기 위해 test할 코드
-  //const url = `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}`;
+  // const url = `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}`;
 
   return new Promise((resolve, reject) => {
     axios
