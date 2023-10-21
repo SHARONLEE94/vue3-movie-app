@@ -106,6 +106,11 @@ export default {
   },
   methods: {
     requestDiffSizeImage(url, size = 700) {
+      // 포스터 이미지가 없는 경우 예외처리
+      if(!url || url === 'N/A'){
+        this.imageLoading = false
+        return '' // return만 사용하면 undefined가 반환 되기 때문에 '' 빈 공백을 반환 시킴
+      }
       const src = url.replace("SX300", `SX${size}`)
       this.$loadImage(src)
         .then(()=>{

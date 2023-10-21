@@ -53,8 +53,14 @@ export default {
     *
      */
     async init(){
-     await this.$loadImage(this.movie.Poster) // 이미지 로드가 완료가 되면
-     this.imageLoading = false  // imageLoading 데이터 값을 false로 변경
+     const poster = this.movie.Poster
+     // 포스터 이미지가 없는 경우를 위한 예외처리
+     if(!poster || poster === 'N/A'){
+       this.imageLoading = false
+      }else{
+        await this.$loadImage(this.movie.Poster) // 이미지 로드가 완료가 되면
+        this.imageLoading = false  // imageLoading 데이터 값을 false로 변경
+      }
     }
   }
 };
