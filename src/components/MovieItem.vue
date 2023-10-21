@@ -41,9 +41,20 @@ export default {
     this.init() 
   },
   methods:{
+    // 데이터 초기화를 위한 메서드
+    /*
+    * init(){
+        const img = document.createElement('img')
+        img.src = this.movie.Poster
+        img.addEventListener('load', () => {
+          this.imageLoading = false
+        })
+      }
+    *
+     */
     async init(){
-     await this.$loadImage(this.movie.Poster)
-     this.imageLoading = false
+     await this.$loadImage(this.movie.Poster) // 이미지 로드가 완료가 되면
+     this.imageLoading = false  // imageLoading 데이터 값을 false로 변경
     }
   }
 };

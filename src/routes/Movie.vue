@@ -99,7 +99,7 @@ export default {
     },
   },
   created() {
-    console.log("this.$route :::", this.$route);
+    // console.log("this.$route :::", this.$route);
     this.$store.dispatch("movie/searchMovieWithId", {
       id: this.$route.params.id,
     });
@@ -111,7 +111,7 @@ export default {
         .then(()=>{
           this.imageLoading = false
         })
-      return src
+      return src // $loadImage와는 별개로 requestDiffSizeImage가 동작 하면 src를 return 시켜준다
     },
   },
 };
