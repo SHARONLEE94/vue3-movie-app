@@ -2,8 +2,17 @@
   <header>
     <Logo />
     <div class="nav nav-pills">
-      <div v-for="nav in navigations" :key="nav.name" class="nav-item">
-        <RouterLink :to="nav.href" active-class="active" class="nav-link">
+      <div
+        v-for="nav in navigations"
+        :key="nav.name"
+        class="nav-item"
+      >
+        <RouterLink 
+          :to="nav.href" 
+          active-class="active"
+          :class="{active: isMatch(nav.path)}"
+          class="nav-link"
+        >
           {{ nav.name }}
         </RouterLink>
       </div>
@@ -28,6 +37,7 @@ export default {
         {
           name: "Movie",
           href: "/movie/tt4520988",
+          path: /^\/movie/ // '/movie'로 시작하는 경로를 모두 일치시키기 위해서 정규 표현식으로 path를 작성
         },
         {
           name: "About",
@@ -36,6 +46,13 @@ export default {
       ],
     };
   },
+  methods:{
+    isMatch(path){
+      if(!path) return false
+      console.log("header > isMatch",this.$route)
+      return path.test(this.$route.fullPath)
+    }
+  }
 };
 </script>
 
