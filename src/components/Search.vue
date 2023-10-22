@@ -14,13 +14,26 @@
         :key="filter.name"
         class="form-select"
       >
-        <option v-if="filter.name === 'year'" value="">All Years</option>
-        <option v-for="item in filter.items" :key="filter.name">
+        <option
+          v-if="filter.name === 'year'"
+          value=""
+        >
+          All Years
+        </option>
+        <option
+          v-for="item in filter.items"
+          :key="filter.name"
+        >
           {{ item }}
         </option>
       </select>
     </div>
-    <button class="btn btn-primary" @click="apply">Apply</button>
+    <button
+      class="btn btn-primary"
+      @click="apply"
+    >
+      Apply
+    </button>
   </div>
 </template>
 
@@ -71,6 +84,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~/scss/main";
 .container {
   display: flex;
   > * {
@@ -92,9 +106,27 @@ export default {
   }
   .btn {
     width: 120px;
-    height: 50px;
+    height: 50px;  
     font-weight: 700;
     flex-shrink: 0; // 1이 기본값. 0이면 너비 감소 방지
+  }
+
+  @include media-breakpoint-down(lg){
+    display: block; // flex로 되어 수평정렬된 부분을 수직정렬로 
+    input{
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+    .selects{
+      margin-right: 0;
+      margin-bottom: 10px;
+      select{
+        width:100%
+      }
+    }
+    .btn{
+      width: 100%;
+    }
   }
 }
 </style>

@@ -17,15 +17,15 @@
         </RouterLink>
       </div>
     </div>
-    <RouterLink 
-      to="/about"
+    <div
       class="user"
+      @click="toAbout"
     >
       <img
         :src="image"
         :alt="name"
       />
-    </RouterLink>
+    </div>
   </header>
 </template>
 
@@ -68,6 +68,10 @@ export default {
       if(!path) return false
       console.log("header > isMatch",this.$route)
       return path.test(this.$route.fullPath)
+    },
+    toAbout(){
+      // router 컴포넌트 말고도 클릭이벤트를 사용하여 $router.push('/about')를 통해서도 이동이 가능
+      this.$router.push('/about') 
     }
   }
 };
@@ -98,11 +102,17 @@ header {
     bottom: 0;
     right: 40px;
     margin: auto;
+    transition: .4s;
     &:hover{
       background-color: darken($gray-200, 10%);
     }
     img{
       width: 100%;
+    }
+  }
+  @include media-breakpoint-down(sm){
+    .nav{
+      display:none;
     }
   }
 }
