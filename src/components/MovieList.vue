@@ -1,12 +1,25 @@
 <template>
   <div class="container">
-    <div :class="{ 'no-result': !movies.length }" class="inner">
+    <div
+      :class="{ 'no-result': !movies.length }"
+      class="inner"
+    >
       <Loader v-if="loading" />
-      <div v-if="message" class="message">
+      <div
+        v-if="message"
+        class="message"
+      >
         {{ message }}
       </div>
-      <div v-else class="movies">
-        <MovieItem v-for="movie in movies" :key="movie.imdbID" :movie="movie" />
+      <div
+        v-else
+        class="movies"
+      >
+        <MovieItem
+          v-for="movie in movies"
+          :key="movie.imdbID"
+          :movie="movie"
+        />
       </div>
     </div>
   </div>
@@ -36,7 +49,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~/scss/main";
 .container {
   margin-top: 30px;
   .inner {
