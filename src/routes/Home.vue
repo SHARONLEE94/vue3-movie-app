@@ -15,6 +15,9 @@ export default {
     Search,
     MoviesList,
   },
+  created(){
+    this.$store.commit('movie/resetMovies')
+  }
 };
 </script>
 
