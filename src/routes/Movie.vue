@@ -79,6 +79,8 @@
 </template>
 
 <script>
+//import { mapState, mapActions } from 'vuex'; // mapActions는 경로가 명시적이지 않다는 불편함 때문에 사용되는 빈도가 낮다
+import { mapState } from 'vuex';
 import Loader from "~/components/Loader";
 
 export default {
@@ -91,20 +93,29 @@ export default {
     }
   },
   computed: {
-    theMovie() {
-      return this.$store.state.movie.theMovie;
-    },
-    loading() {
-      return this.$store.state.movie.loading;
-    },
+    ...mapState('movie',[
+      'theMovie',
+      'loading'
+    ])
+    // theMovie() {
+    //   return this.$store.state.movie.theMovie;
+    // },
+    // loading() {
+    //   return this.$store.state.movie.loading;
+    // },
   },
   created() {
     // console.log("this.$route :::", this.$route);
-    this.$store.dispatch("movie/searchMovieWithId", {
+    this.$store.dispatch("movie/searchMovieWithId", {   
+    // this.searchMovieWithId({  // vuex의 mapActions을 사용한 경우
       id: this.$route.params.id,
     });
   },
   methods: {
+    // 경로가 명시적이지 않기 때문에 mapActions는 많이 쓰이지 않는다
+    // ...mapActions('movie', [
+    //   'searchMovieWithId'
+    // ]),
     requestDiffSizeImage(url, size = 700) {
       // 포스터 이미지가 없는 경우 예외처리
       if(!url || url === 'N/A'){

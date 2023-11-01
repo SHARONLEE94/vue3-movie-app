@@ -21,6 +21,7 @@
 
 <script>
 import Loader from '~/components/Loader'
+import { mapState } from 'vuex'
 export default{
   components:{
     Loader
@@ -31,21 +32,32 @@ export default{
     }
   },
   computed:{
-    image(){
-      return this.$store.state.about.image
-    },
-    name(){
-      return this.$store.state.about.name
-    },
-    email(){
-      return this.$store.state.about.email
-    },
-    blog(){
-      return this.$store.state.about.blog
-    },
-    phone(){
-      return this.$store.state.about.phone
-    },
+    // mapState의 첫번째 인수로는 '모듈의 이름', 
+    // 두번째 인수는 배열 데이터 내부에 상태의 이름을 문자 데이터 형식으로 작성.
+    // 전개연산자를 사용하여 객체 데이터 내부에 작성하는 방식으로 사용하는 것이 좋다.
+    ...mapState('about', [
+      'image',
+      'name',
+      'email',
+      'blog',
+      'phone'
+    ])
+    // ▲ 아래의 코드를 vuex의 mapState 핼퍼로 작성하여 정리
+    // image(){
+    //   return this.$store.state.about.image
+    // },
+    // name(){
+    //   return this.$store.state.about.name
+    // },
+    // email(){
+    //   return this.$store.state.about.email
+    // },
+    // blog(){
+    //   return this.$store.state.about.blog
+    // },
+    // phone(){
+    //   return this.$store.state.about.phone
+    // },
   },
   mounted(){
     // 라이프 사이클에서는 비동기를 사용하면 안됨.
